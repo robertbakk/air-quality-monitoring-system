@@ -78,7 +78,7 @@ float MQ135::getCorrectedResistance(float t, float h) {
 */
 /**************************************************************************/
 float MQ135::getPPM() {
-  return PARA * pow((getResistance()/RZERO), -PARB);
+  return PARA * pow((getResistance() / RZERO), -PARB);
 }
 
 /**************************************************************************/
@@ -93,7 +93,7 @@ float MQ135::getPPM() {
 */
 /**************************************************************************/
 float MQ135::getCorrectedPPM(float t, float h) {
-  return PARA * pow((getCorrectedResistance(t, h)/RZERO), -PARB);
+  return PARA * pow((getCorrectedResistance(t, h) / RZERO), -PARB);
 }
 
 /**************************************************************************/
@@ -120,4 +120,8 @@ float MQ135::getRZero() {
 /**************************************************************************/
 float MQ135::getCorrectedRZero(float t, float h) {
   return getCorrectedResistance(t, h) * pow((ATMOCO2/PARA), (1./PARB));
+}
+
+void MQ135::setR0(float a) {
+  RZERO = a;
 }

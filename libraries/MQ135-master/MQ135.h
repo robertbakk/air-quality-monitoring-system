@@ -24,7 +24,6 @@ v1.0 - First release
 /// The load resistance on the board
 #define RLOAD 10.0
 /// Calibration resistance at atmospheric CO2 level
-#define RZERO 350.71
 /// Parameters for calculating ppm of CO2 from sensor resistance
 #define PARA 116.6020682
 #define PARB 2.769034857
@@ -36,7 +35,7 @@ v1.0 - First release
 #define CORD 0.0018
 
 /// Atmospheric CO2 level for calibration purposes
-#define ATMOCO2 397.13
+#define ATMOCO2 412.89
 
 class MQ135 {
  private:
@@ -44,6 +43,7 @@ class MQ135 {
 
  public:
   MQ135(uint8_t pin);
+  float RZERO;
   float getCorrectionFactor(float t, float h);
   float getResistance();
   float getCorrectedResistance(float t, float h);
@@ -51,5 +51,8 @@ class MQ135 {
   float getCorrectedPPM(float t, float h);
   float getRZero();
   float getCorrectedRZero(float t, float h);
+  void setR0(float a);
+  //float getR();
+  //float RZERO = getCorrectedRZero(t,h);
 };
 #endif
