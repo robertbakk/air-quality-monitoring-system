@@ -38,18 +38,21 @@ void setup() {
   MQ9.init();
 
   float calcR0MQ9 = 0;
+  float calcR0MQ135 = 0;
+
+
+  
   for (int i = 0; i < 10; i++)
   {
     MQ9.update();
+    h = dht.readHumidity();
+    t = dht.readTemperature();
     calcR0MQ9 += MQ9.calibrate(RatioMQ9CleanAir);
+    calcR0MQ135 += mq135.getCorrectedRZero(t, h);
   }
 
   MQ9.setR0(calcR0MQ9 / 10);
-
-  h = dht.readHumidity();
-  t = dht.readTemperature();
-
-  mq135.setR0(mq135.getCorrectedRZero(t, h));
+  mq135.setR0(calcR0MQ135 / 10);
 
   mySerial.println("AT");
   delay(200);
